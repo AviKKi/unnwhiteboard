@@ -1,0 +1,10 @@
+inspirations
+https://dribbble.com/shots/8369503-WorkFinder-Job-Board-Platform/attachments/691680?mode=media
+https://dribbble.com/shots/7848757-Job-Search-Platform
+https://dribbble.com/shots/10809967-Job-searching-application
+https://dribbble.com/shots/16582397-Hiring-Website
+https://dribbble.com/shots/15369006-HuntJobs-Job-Search-Dashboard
+https://dribbble.com/shots/14145979-Job-Search-Platform
+https://dribbble.com/shots/15761479-Chakri-Job-Portal-Landing-page-v1
+https://dribbble.com/shots/15794174-Chakri-Job-Portal-Landing-page-v2
+https://dribbble.com/shots/9455575-Job-Search-Mobile-App
