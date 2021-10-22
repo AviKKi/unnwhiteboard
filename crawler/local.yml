@@ -11,6 +11,7 @@ services:
       - ./:/app
     environment:
       - MONGO_DB_URI=mongodb://mongo:27017
+      - NODE_CONFIG_DIR=/app/src/config
     depends_on:
       - mongo
   mongo:
