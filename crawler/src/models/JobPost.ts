@@ -2,8 +2,11 @@ import mongoose from 'mongoose'
 import { prop, getModelForClass } from "@typegoose/typegoose";
 
 export class JobPostClass {
-    @prop()
+    @prop({ required: true })
     public title?: String
+
+    @prop()
+    public location?: String
 
     @prop()
     public slug?: String
@@ -14,10 +17,10 @@ export class JobPostClass {
     @prop()
     public tags: String[] = []
 
-    @prop()
+    @prop({ required: true })
     public description?: String
 
-    @prop()
+    @prop({ required: true })
     public applyUrl?: String
 }
 
