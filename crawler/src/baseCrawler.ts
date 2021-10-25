@@ -20,6 +20,11 @@ const defaultBaseCrawlerConfig: BaseCrawlerConfig = {
     companySlug: ""
 }
 
+export interface CrawlerError {
+    url: string,
+    message: string
+}
+
 /**
  * Inherit this class to create crawlers
  */
@@ -28,11 +33,21 @@ class BaseCrawler {
      * Rate limiting semaphone
      */
     limit: RateLimitFunc
+
     axios: Axios
+
     jobsList: JobPostClass[] = []
+
     jsonDir: string = "output"
+
+    /**
+     * Array of errors for each url that failed
+     */
+    errors: CrawlerError[] = []
+
     companySlug: string
-    turndownService
+
+    turndownService: TurndownService
 
     constructor(requestLimiter: undefined | RateLimitFunc, conf: BaseCrawlerConfig = defaultBaseCrawlerConfig) {
         if (requestLimiter !== undefined)
@@ -69,7 +84,12 @@ class BaseCrawler {
     async dumpJobsList() {
         const filename = this.constructor.name.replace('Crawler', '')
         const file = await fs.open(`${this.jsonDir}/${filename}.json`, 'w+')
-        await file.write(JSON.stringify(this.jobsList))
+        const data = {
+            jobs: this.jobsList,
+            errors: this.errors,
+            companySlug: this.companySlug
+        }
+        await file.write(JSON.stringify(data))
         await file.close()
     }
 
