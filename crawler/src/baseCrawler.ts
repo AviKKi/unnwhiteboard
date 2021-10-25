@@ -59,6 +59,7 @@ class BaseCrawler {
         const filename = this.constructor.name.replace('Crawler', '')
         const file = await fs.open(`${this.jsonDir}/${filename}.json`, 'w+')
         await file.write(JSON.stringify(this.jobsList))
+        await file.close()
     }
 
 }
