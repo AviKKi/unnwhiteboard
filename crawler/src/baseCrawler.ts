@@ -25,6 +25,12 @@ export interface CrawlerError {
     message: string
 }
 
+export interface JobsJSON {
+    jobs: JobPostClass[]
+    companySlug: string
+    errors: CrawlerError
+}
+
 /**
  * Inherit this class to create crawlers
  */

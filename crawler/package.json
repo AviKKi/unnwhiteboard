@@ -7,6 +7,7 @@
         "crawl": "ts-node src/index.ts",
         "dev-server": "nodemon src/server.ts",
         "shell-server": "nodemon src/shell-server.ts",
+        "upload": "ts-node src/uploadData.ts",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "keywords": [],

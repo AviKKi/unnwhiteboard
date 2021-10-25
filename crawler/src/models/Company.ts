@@ -5,14 +5,20 @@ export class CompanyClass {
     @prop()
     public name?: String;
 
-    @prop()
-    public slug?: String;
+    @prop({ unique: true })
+    public slug?: string;
 
     @prop()
     public description?: String;
 
     @prop()
     public logoUrl?: String;
+
+    @prop()
+    public process?: String;
+
+    @prop()
+    public url?: string
 }
 
 const Company = getModelForClass(CompanyClass)

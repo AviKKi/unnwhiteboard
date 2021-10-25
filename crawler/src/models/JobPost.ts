@@ -8,7 +8,7 @@ export class JobPostClass {
     @prop()
     public location?: String
 
-    @prop()
+    @prop({ unique: true })
     public slug?: String
 
     @prop()
