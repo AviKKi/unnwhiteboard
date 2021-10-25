@@ -5,11 +5,9 @@ import TurndownService from 'turndown'
 class WeedMapsCrawler extends BaseCrawler {
     startUrl = "https://boards.greenhouse.io/weedmaps77"
     WHITELIST_DEPARTMENTS = ["engineering"]
-    turndownService
 
     constructor(requestLimiter: undefined | RateLimitFunc) {
         super(requestLimiter)
-        this.turndownService = new TurndownService()
     }
 
 

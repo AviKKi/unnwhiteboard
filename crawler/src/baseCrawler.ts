@@ -1,6 +1,7 @@
 import { RateLimit } from "async-sema";
 import axios, { Axios, AxiosRequestConfig } from 'axios'
 import fs from 'fs/promises'
+import TurndownService from "turndown";
 
 import { JobPostClass } from "./models/JobPost"
 
@@ -21,6 +22,7 @@ class BaseCrawler {
     axios: Axios
     jobsList: JobPostClass[] = []
     jsonDir: string = "output"
+    turndownService
 
     constructor(requestLimiter: undefined | RateLimitFunc, jsonDir: string | undefined = "") {
         if (requestLimiter !== undefined)
@@ -33,6 +35,7 @@ class BaseCrawler {
             }
         })
         if (jsonDir) this.jsonDir = jsonDir
+        this.turndownService = new TurndownService()
     }
 
     /**
