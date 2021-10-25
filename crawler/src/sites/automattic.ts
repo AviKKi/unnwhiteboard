@@ -3,7 +3,7 @@ import { JSDOM } from "jsdom";
 
 class AutomatticCrawler extends BaseCrawler {
     constructor(requestLimiter: undefined | RateLimitFunc) {
-        super(requestLimiter)
+        super(requestLimiter, { companySlug: "automattic" })
     }
 
     async parseDescriptionPage(url: string) {

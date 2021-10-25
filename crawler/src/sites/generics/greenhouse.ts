@@ -30,7 +30,6 @@ class GreenhouseCrawler extends BaseCrawler {
         const options = departmentSelect?.childNodes as NodeListOf<HTMLOptionElement>
         const departmentIds: string[] = [];
         options.forEach((option: HTMLOptionElement) => {
-            console.log(option.textContent)
             const includeThisDep = this.WHITELIST_DEPARTMENTS.map(dep => option.textContent?.toLowerCase()?.indexOf(dep) !== -1).reduce((x, y) => x || y)
             if (includeThisDep && option.value) departmentIds.push(option.value)
         })

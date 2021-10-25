@@ -3,7 +3,7 @@ import { JSDOM } from "jsdom";
 
 class AxelerantCrawler extends BaseCrawler {
     constructor(requestLimiter: undefined | RateLimitFunc) {
-        super(requestLimiter)
+        super(requestLimiter, { companySlug: "axelerant"})
     }
 
     async parseDescriptionPage(url: string) {

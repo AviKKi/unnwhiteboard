@@ -11,6 +11,15 @@ export type RateLimitFunc = () => Promise<void>
 
 class UnimplementedMethod extends Error { }
 
+export interface BaseCrawlerConfig {
+    companySlug: string,
+    jsonDir?: string
+}
+
+const defaultBaseCrawlerConfig: BaseCrawlerConfig = {
+    companySlug: ""
+}
+
 /**
  * Inherit this class to create crawlers
  */
@@ -22,9 +31,10 @@ class BaseCrawler {
     axios: Axios
     jobsList: JobPostClass[] = []
     jsonDir: string = "output"
+    companySlug: string
     turndownService
 
-    constructor(requestLimiter: undefined | RateLimitFunc, jsonDir: string | undefined = "") {
+    constructor(requestLimiter: undefined | RateLimitFunc, conf: BaseCrawlerConfig = defaultBaseCrawlerConfig) {
         if (requestLimiter !== undefined)
             this.limit = requestLimiter
         else
@@ -34,8 +44,9 @@ class BaseCrawler {
                 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36'
             }
         })
-        if (jsonDir) this.jsonDir = jsonDir
+        if (conf.jsonDir) this.jsonDir = conf.jsonDir
         this.turndownService = new TurndownService()
+        this.companySlug = conf.companySlug
     }
 
     /**
