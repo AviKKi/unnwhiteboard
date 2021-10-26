@@ -1,5 +1,6 @@
 import { JSDOM } from "jsdom";
 import BaseCrawler, { RateLimitFunc } from "../../baseCrawler";
+import slugify from "slugify";
 
 class GreenhouseCrawler extends BaseCrawler {
     
@@ -17,7 +18,8 @@ class GreenhouseCrawler extends BaseCrawler {
         const title = dom.window.document.querySelector('h1')?.textContent?.trim()
         const location = dom.window.document.querySelector('div.location')?.textContent?.trim()
         const description = this.turndownService.turndown(dom.window.document.querySelector('div#content')?.innerHTML || '')
-        return { title, location, description, applyUrl: url, tags: [] }
+        const slug = slugify(`${this.companySlug} ${title} ${url.split('/').at(-1)}`)
+        return { title, location, description, applyUrl: url, tags: [], slug }
     }
 
 

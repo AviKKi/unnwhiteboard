@@ -1,5 +1,6 @@
 import BaseCrawler, { RateLimitFunc } from "../baseCrawler";
 import { JSDOM } from "jsdom";
+import slugify from "slugify";
 
 class AutomatticCrawler extends BaseCrawler {
     constructor(requestLimiter: undefined | RateLimitFunc) {
@@ -12,7 +13,8 @@ class AutomatticCrawler extends BaseCrawler {
         const dom = new JSDOM(res.data as string)
         const title = dom.window.document.querySelector('h2')?.textContent
         const location = "Remote, Anywhere"
-        return { title, location, applyUrl: url }
+        const slug = slugify(`${this.companySlug} ${title}`)
+        return { title, location, applyUrl: url, slug }
     }
 
     async start() {
