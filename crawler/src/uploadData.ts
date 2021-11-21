@@ -32,9 +32,21 @@ async function main() {
                 console.warn(`[x] ${data.companySlug} not found in DB`)
             } else {
                 for (const job of data.jobs) {
-                    const j = new JobPost({ ...job, company })
-                    await j.save()
-                    addedJobs += 1
+                    const slug = job.slug
+                    if (slug) {
+                        await JobPost.findOneAndUpdate(
+                            { slug },
+                            { ...job, company: {
+                                _id: company.id,
+                                name: company.name,
+                                slug: company.slug,
+                                logoUrl: company.logoUrl
+                            } },
+                            { upsert: true }
+                        )
+                        addedJobs += 1
+                    }
+
                 }
                 console.log(`[i] ${addedJobs} jobs added for ${company.name}`)
             }

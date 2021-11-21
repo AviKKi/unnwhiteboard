@@ -1,27 +1,39 @@
 import mongoose from 'mongoose'
 import { prop, getModelForClass } from "@typegoose/typegoose";
 
+class CompanyMeta {
+    @prop({})
+    public _id?: mongoose.Types.ObjectId
+    @prop({})
+    public name?: string
+    @prop({})
+    public slug?: string
+    @prop({})
+    public logoUrl?: string
+}
+
+
 export class JobPostClass {
     @prop({ required: true })
-    public title?: String
+    public title?: string
 
     @prop()
-    public location?: String
+    public location?: string
 
     @prop({ unique: true, required: true })
-    public slug?: String
+    public slug?: string
 
     @prop()
-    public company?: mongoose.Types.ObjectId
+    public company?: CompanyMeta
 
     @prop()
-    public tags: String[] = []
+    public tags: string[] = []
 
     @prop({ required: true })
-    public description?: String
+    public description?: string
 
     @prop({ required: true })
-    public applyUrl?: String
+    public applyUrl?: string
 }
 
 const JobPost = getModelForClass(JobPostClass)

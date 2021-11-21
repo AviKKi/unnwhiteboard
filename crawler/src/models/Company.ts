@@ -3,19 +3,19 @@ import { prop, getModelForClass } from "@typegoose/typegoose";
 
 export class CompanyClass {
     @prop()
-    public name?: String;
+    public name?: string;
 
     @prop({ unique: true })
     public slug?: string;
 
     @prop()
-    public description?: String;
+    public description?: string;
 
     @prop()
-    public logoUrl?: String;
+    public logoUrl?: string;
 
     @prop()
-    public process?: String;
+    public process?: string;
 
     @prop()
     public url?: string
