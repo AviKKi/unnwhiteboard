@@ -2,12 +2,12 @@
 	import type { Load } from '@sveltejs/kit';
 	export const prerender = true;
 	export const load: Load = async ({ fetch }) => {
-		const url = 'https://jsonplaceholder.typicode.com/todos/';
+		const url = 'http://localhost:8000/jobs/';
 		const res = await fetch(url);
 		if (res.ok) {
 			return {
 				props: {
-					todos: await res.json()
+					jobs: await res.json()
 				}
 			};
 		} else {
@@ -22,12 +22,18 @@
 <script lang="ts">
 	import Select from 'svelte-select';
 	import allTags from '../constants/allTags';
-	export let todos: { id: number; title: string }[];
+	export let jobs: {
+		id: string;
+		title: string;
+		company: { name: string; slug: string };
+		slug: string;
+	}[];
 	const selectItems = Object.entries(allTags).map((item) => ({ value: item[0], label: item[1] }));
 	let filterValues = undefined;
 	const handleSelect = (e) => {
 		filterValues = e.detail;
 	};
+	console.log(jobs);
 </script>
 
 <svelte:head>
@@ -55,19 +61,25 @@
 		</div>
 	</div>
 	<div class="flex items-center flex-col py-12 bg-gray-100">
-		{#if todos}
-			{#each todos as todo}
-				<li class="p-2 bg-white my-2 rounded-md border-4 border-white hover:border-blue-500 list-none cardWrapper w-2/3">{todo.title}</li>
+		{#if jobs}
+			{#each jobs as job}
+				<li
+					class="p-2 bg-white my-2 rounded-md border-4 border-white hover:border-blue-500 list-none cardWrapper w-2/3"
+				>
+				<a class="flex flex-col" href={`/job/${job.slug}`}>
+					<span class="text-gray-700"><a href={`/company/${job.company.slug}`}>{job.company.name}</a></span>
+					<span class="text-lg">{job.title}</span>
+				</a>
+				</li>
 			{/each}
 		{:else}
-			Todos not loaded
+			Jobs not loaded
 		{/if}
 	</div>
 </section>
 
-
 <style>
-	.cardWrapper{
+	.cardWrapper {
 		max-width: 650px;
 	}
-	</style>
+</style>
