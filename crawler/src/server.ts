@@ -1,12 +1,14 @@
 import express from "express";
 import { json } from 'body-parser'
 import repl from 'repl'
+import cors from 'cors'
 
 import connectDB from "./config/database";
 import Company from './routes/Company'
 import JobPost from './routes/JobPost'
 
 const app = express()
+app.use(cors())
 app.use(json())
 
 connectDB()
