@@ -3,7 +3,7 @@ import BaseCrawler, { RateLimitFunc } from "../../baseCrawler";
 import slugify from "slugify";
 
 class GreenhouseCrawler extends BaseCrawler {
-    
+
     startUrl: string = ""
     WHITELIST_DEPARTMENTS: string[] = []
 
@@ -18,12 +18,16 @@ class GreenhouseCrawler extends BaseCrawler {
         const title = dom.window.document.querySelector('h1')?.textContent?.trim()
         const location = dom.window.document.querySelector('div.location')?.textContent?.trim()
         const description = this.turndownService.turndown(dom.window.document.querySelector('div#content')?.innerHTML || '')
-        const slug = slugify(`${this.companySlug} ${title} ${url.split('/').at(-1)}`)
-        return { title, location, description, applyUrl: url, tags: [], slug }
+        const urlId = url.split('/')
+        const slug = slugify(`${this.companySlug} ${title} ${urlId[urlId.length - 1]}`)
+        const schemaMetas = this.getSchemaMeta(dom.window.document)
+        let postedDate = schemaMetas.map(data => data?.datePosted)[0]
+        return { title, location, description, applyUrl: url, tags: [], slug, postedDate }
     }
 
 
     async start() {
+
         const res = await this.get(this.startUrl)
         const dom = new JSDOM(res.data as string)
 

@@ -28,8 +28,13 @@ class AutomatticCrawler extends BaseCrawler {
             }
         }
 
-        const results = await Promise.allSettled(listingLinks.map(l => this.parseDescriptionPage(l)))
-        console.log(results)
+        const settled = await Promise.allSettled(listingLinks.map(l => this.parseDescriptionPage(l)))
+        settled.filter(r => r.status === "fulfilled")
+            .map(r => r.status === "fulfilled" && r.value)
+            .forEach(
+                // @ts-ignore
+                job => this.jobsList.push(job)
+            )
     }
 }
 

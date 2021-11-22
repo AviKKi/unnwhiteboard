@@ -17,7 +17,7 @@ router.get("/job/:slug", async (req, res)=>{
         res.status(404).json({"non_field_errors": [`Job Post with slug ${slug} not found`]})
     } else {
         // @ts-ignore
-        res.json(job._doc)
+        res.json(job.toJSON())
     }
 })
 
