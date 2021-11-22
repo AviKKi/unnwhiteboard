@@ -99,6 +99,10 @@ class BaseCrawler {
         await file.close()
     }
 
+    getSchemaMeta(document: Document) {
+        const tags = Array.from(document.querySelectorAll('script[type="application/ld+json"]'))
+        return tags.map(tag => JSON.parse(tag?.textContent || '{}'))
+    }
 }
 
 export default BaseCrawler
