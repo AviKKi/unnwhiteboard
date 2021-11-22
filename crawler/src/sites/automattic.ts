@@ -14,7 +14,8 @@ class AutomatticCrawler extends BaseCrawler {
         const title = dom.window.document.querySelector('h2')?.textContent
         const location = "Remote, Anywhere"
         const slug = slugify(`${this.companySlug} ${title}`)
-        return { title, location, applyUrl: url, slug }
+        const description = this.turndownService.turndown(dom.window.document.querySelector('.jobs-list')?.innerHTML || '')
+        return { title, location, applyUrl: url, slug, description }
     }
 
     async start() {

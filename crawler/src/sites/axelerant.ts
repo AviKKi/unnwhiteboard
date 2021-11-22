@@ -15,7 +15,7 @@ class AxelerantCrawler extends BaseCrawler {
         const location = dom.window.document.querySelector<HTMLElement>('li[title="Location"]')?.textContent?.trim()
         const timeType = dom.window.document.querySelector<HTMLElement>('li[title="Type"]')?.textContent?.trim()
         const experience = dom.window.document.querySelector<HTMLElement>('li[title="Experience"]')?.textContent?.trim()
-        const description = dom.window.document.querySelector<HTMLElement>('div[class="description"]')?.textContent?.trim()
+        const description = this.turndownService.turndown(dom.window.document.querySelector<HTMLElement>('div[class="description"]')?.innerHTML || '')
         const slug = slugify(`${this.companySlug} ${title}`)
         return { title, location, timeType, experience, applyUrl: url, slug, description }
     }
