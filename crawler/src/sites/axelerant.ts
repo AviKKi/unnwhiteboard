@@ -4,7 +4,7 @@ import slugify from "slugify";
 
 class AxelerantCrawler extends BaseCrawler {
     constructor(requestLimiter: undefined | RateLimitFunc) {
-        super(requestLimiter, { companySlug: "axelerant"})
+        super(requestLimiter, { companySlug: "axelerant" })
     }
 
     async parseDescriptionPage(url: string) {
@@ -15,8 +15,9 @@ class AxelerantCrawler extends BaseCrawler {
         const location = dom.window.document.querySelector<HTMLElement>('li[title="Location"]')?.textContent?.trim()
         const timeType = dom.window.document.querySelector<HTMLElement>('li[title="Type"]')?.textContent?.trim()
         const experience = dom.window.document.querySelector<HTMLElement>('li[title="Experience"]')?.textContent?.trim()
+        const description = dom.window.document.querySelector<HTMLElement>('div[class="description"]')?.textContent?.trim()
         const slug = slugify(`${this.companySlug} ${title}`)
-        return { title, location, timeType, experience, applyUrl: url, slug }
+        return { title, location, timeType, experience, applyUrl: url, slug, description }
     }
 
     async start() {
@@ -27,7 +28,13 @@ class AxelerantCrawler extends BaseCrawler {
         jobUrls = jobUrls.slice(0, 4)
         console.log(jobUrls)
         const settled = await Promise.allSettled(jobUrls.map(url => this.parseDescriptionPage(url)))
-        const results = settled.filter(r => r.status === "fulfilled").map(r => r.status === "fulfilled" && r.value)
+        settled.filter(r => r.status === "fulfilled")
+            .map(r => r.status === "fulfilled" && r.value)
+            .forEach(
+                // @ts-ignore
+                job => this.jobsList.push(job)
+            )
+
     }
 }
 

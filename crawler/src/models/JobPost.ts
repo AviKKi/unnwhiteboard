@@ -29,11 +29,14 @@ export class JobPostClass {
     @prop()
     public tags: string[] = []
 
-    @prop({ required: true })
+    @prop()
     public description?: string
 
     @prop({ required: true })
     public applyUrl?: string
+
+    @prop()
+    public postedDate?: Date
 }
 
 const JobPost = getModelForClass(JobPostClass)

@@ -22,12 +22,17 @@
 <script lang="ts">
 	import Select from 'svelte-select';
 	import allTags from '../constants/allTags';
+	import { format } from 'timeago.js';
+
+
 	export let jobs: {
 		id: string;
 		title: string;
 		company: { name: string; slug: string };
 		slug: string;
+		postedDate: string
 	}[];
+
 	const selectItems = Object.entries(allTags).map((item) => ({ value: item[0], label: item[1] }));
 	let filterValues = undefined;
 	const handleSelect = (e) => {
@@ -70,6 +75,7 @@
 					<span class="text-gray-700"><a href={`/company/${job.company.slug}`}>{job.company.name}</a></span>
 					<span class="text-lg">{job.title}</span>
 				</a>
+				{job.postedDate && format(job.postedDate) || ''}
 				</li>
 			{/each}
 		{:else}
