@@ -1,5 +1,6 @@
-import mongoose from 'mongoose'
-import { prop, getModelForClass } from "@typegoose/typegoose";
+import mongoose, { Document } from 'mongoose'
+import { prop, getModelForClass, pre } from "@typegoose/typegoose";
+import allTags from '../constants/allTags';
 
 class CompanyMeta {
     @prop({})
@@ -13,7 +14,19 @@ class CompanyMeta {
 }
 
 
-export class JobPostClass {
+
+@pre<JobPostClass>('findOneAndUpdate', async function () {
+    const query = this.getUpdate()
+    // const post = await this.model.findOne(this.getQuery()); 
+    let filterTags: string[] = []
+    for (const tag of allTags) {
+        // @ts-ignore
+        if (query.title?.toLowerCase()?.indexOf(tag) !== -1 || query.description?.toLowerCase()?.indexOf(tag) !== -1)
+            filterTags.push(tag)
+    }
+    this.set('filterTags', filterTags)
+})
+class JobPostClass {
     @prop({ required: true })
     public title?: string
 
@@ -30,6 +43,9 @@ export class JobPostClass {
     public tags: string[] = []
 
     @prop()
+    public filterTags?: string[] = []
+
+    @prop()
     public description?: string
 
     @prop({ required: true })
@@ -38,6 +54,8 @@ export class JobPostClass {
     @prop()
     public postedDate?: Date
 }
+
+export { JobPostClass }
 
 const JobPost = getModelForClass(JobPostClass)
 

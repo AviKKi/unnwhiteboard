@@ -5,7 +5,14 @@ const router = Router()
 
 
 router.get("/jobs", async (req, res) => {
-    const jobs = await JobPost.find({}, null, { sort: { postedDate: -1 } })
+    const LIMIT = 20
+    const { filter } = req.query
+    let findParams: { filterTags?: any } = {}
+    if (typeof filter === "string") {
+        const filters = filter.split(',')
+        findParams['filterTags'] = { $in: filters }
+    }
+    const jobs = await JobPost.find(findParams, null, { sort: { postedDate: -1 }, limit: LIMIT, })
     // @ts-ignore
     res.json(jobs.map(j => j._doc))
 })
