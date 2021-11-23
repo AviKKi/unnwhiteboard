@@ -24,21 +24,30 @@
 	import allTags from '../constants/allTags';
 	import { format } from 'timeago.js';
 
-
 	export let jobs: {
 		id: string;
 		title: string;
 		company: { name: string; slug: string };
 		slug: string;
-		postedDate: string
+		postedDate: string;
 	}[];
-
+	let filteredJobs = null;
+	async function fetchFilteredList(filters: string[]) {
+		const res = await fetch(`http://localhost:8000/jobs/?filter=${filters.join(',')}`);
+		const json = await res.json();
+		filteredJobs = json;
+		console.log({ json });
+	}
 	const selectItems = Object.entries(allTags).map((item) => ({ value: item[0], label: item[1] }));
 	let filterValues = undefined;
 	const handleSelect = (e) => {
 		filterValues = e.detail;
+		if (e.detail) fetchFilteredList(e.detail.map((val) => val.value));
+		else filteredJobs = null;
 	};
-	console.log(jobs);
+	let displayJobs: any;
+	$: displayJobs = filteredJobs || jobs;
+	$: console.log({ filteredJobs });
 </script>
 
 <svelte:head>
@@ -66,16 +75,18 @@
 		</div>
 	</div>
 	<div class="flex items-center flex-col py-12 bg-gray-100">
-		{#if jobs}
-			{#each jobs as job}
+		{#if displayJobs}
+			{#each displayJobs as job}
 				<li
 					class="p-2 bg-white my-2 rounded-md border-4 border-white hover:border-blue-500 list-none cardWrapper w-2/3"
 				>
-				<a class="flex flex-col" href={`/job/${job.slug}`}>
-					<span class="text-gray-700"><a href={`/company/${job.company.slug}`}>{job.company.name}</a></span>
-					<span class="text-lg">{job.title}</span>
-				</a>
-				{job.postedDate && format(job.postedDate) || ''}
+					<a class="flex flex-col" href={`/job/${job.slug}`}>
+						<span class="text-gray-700"
+							><a href={`/company/${job.company.slug}`}>{job.company.name}</a></span
+						>
+						<span class="text-lg">{job.title}</span>
+					</a>
+					{(job.postedDate && format(job.postedDate)) || ''}
 				</li>
 			{/each}
 		{:else}
