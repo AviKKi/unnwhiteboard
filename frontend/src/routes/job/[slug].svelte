@@ -1,7 +1,9 @@
 <script context="module">
+	import env from '$lib/env';
+
 	/** @type {import('@sveltejs/kit').Load} */
 	export async function load({ page, fetch, session, stuff }) {
-		const url = `http://localhost:8000/job/${page.params.slug}/`;
+		const url = `http://${env.API_DOMAIN}/job/${page.params.slug}/`;
 		const resJob = await fetch(url);
 		if (resJob.ok) {
 			return {
@@ -26,7 +28,8 @@
 <section class=" py-20 flex  justify-center">
 	<div class="flex max-w-7xl px-2 text-gray-900 gap-3">
 		<div class="flex-1 markdown">
-			<b>Posted on:</b> {(new Date(job.postedDate)).toDateString().slice(3, )}
+			<b>Posted on:</b>
+			{new Date(job.postedDate).toDateString().slice(3)}
 			<SvelteMarkdown source={job.description} />
 		</div>
 		<div class="flex-1 flex flex-col items-center rightColumn">
