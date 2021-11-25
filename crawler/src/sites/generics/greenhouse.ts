@@ -25,9 +25,10 @@ class GreenhouseCrawler extends BaseCrawler {
         return { title, location, description, applyUrl: url, tags: [], slug, postedDate }
     }
 
-
-    async start() {
-
+    /**
+     * @deprecated old method depricated in favor of direct API access
+     */
+    async __getJobUrls() {
         const res = await this.get(this.startUrl)
         const dom = new JSDOM(res.data as string)
 
@@ -50,6 +51,32 @@ class GreenhouseCrawler extends BaseCrawler {
                     jobUrls.push(`https://boards.greenhouse.io${url}`)
             })
         }
+
+        return jobUrls
+    }
+
+    async getJobUrls() {
+        const parts = this.startUrl.split('/')
+        const company = parts[(parts?.length || 0) - 1] || ''
+        const res = await this.get(`https://api.greenhouse.io/v1/boards/${company}/embed/departments`)
+
+
+        const json: any = res.data as Object
+        let jobUrls: string[] = []
+
+        for (const dep of json.departments) {
+            this.WHITELIST_DEPARTMENTS.forEach(whitelistedDep => {
+                if (dep.name.toLowerCase().indexOf(whitelistedDep) !== -1) {
+                    jobUrls = jobUrls.concat(dep.jobs.map((job: any) => job.absolute_url))
+                }
+            })
+        }
+        return jobUrls
+    }
+
+    async start() {
+
+        const jobUrls = await this.getJobUrls()
 
         // crawl each job url
         const promises = jobUrls.map(url => this.parseDescriptionPage(url))
