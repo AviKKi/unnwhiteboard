@@ -1,2 +1,2 @@
 dev:
-	cd frontend && npm run dev
+	docker-compose -f local.yml up

@@ -1,0 +1,36 @@
+version: '3'
+services:
+  svelte:
+    restart: always
+    build:
+      context: ./frontend
+      dockerfile: ../docker/local/svelte/Dockerfile
+    ports:
+      - 3000:3000
+    volumes:
+      - ./frontend:/app
+    environment:
+      - VITE_API_DOMAIN=node:8000
+  mongo:
+    image: mongo
+    ports:
+      - 27017:27017
+    volumes:
+      - mongodb:/data/db
+  node:
+    restart: always
+    build:
+      context: ./crawler
+      dockerfile: ../docker/local/node/Dockerfile
+    ports:
+      - 8000:8000
+    volumes:
+      - ./crawler:/app
+    environment:
+      - MONGO_DB_URI=mongodb://mongo:27017
+      - NODE_CONFIG_DIR=/app/src/config
+    depends_on:
+      - mongo
+
+volumes:
+ mongodb:
