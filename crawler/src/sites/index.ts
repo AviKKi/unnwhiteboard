@@ -9,6 +9,7 @@ import AdHocTeamCrawler from "./adhocteam"
 import AirtableCrawler from "./airtable"
 import CanonicalCrawler from "./canonical"
 import MuxCrawler from "./mux"
+import ReplitCrawler from "./replit"
 
 export const Crawlers: typeof BaseCrawler[] = [
     AbleCrawler,
@@ -21,4 +22,5 @@ export const Crawlers: typeof BaseCrawler[] = [
     ModeAnalyticsCrawler,
     WeedMapsCrawler,
     MuxCrawler,
+    ReplitCrawler,
 ]
