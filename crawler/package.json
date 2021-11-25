@@ -8,7 +8,8 @@
         "dev-server": "nodemon src/server.ts",
         "shell-server": "nodemon src/shell-server.ts",
         "upload": "ts-node src/uploadData.ts",
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "build": "tsc -p . --outDir build"
     },
     "keywords": [],
     "author": "",

@@ -1,0 +1,44 @@
+version: '3'
+services:
+  nginx:
+    image: nginx:1.15-alpine
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./data/nginx:/etc/nginx/conf.d
+  certbot:
+    image: certbot/certbot
+  svelte:
+    restart: always
+    build:
+      context: ./frontend
+      dockerfile: ../docker/production/svelte/Dockerfile
+    ports:
+      - 3000:3000
+    environment:
+      - VITE_API_DOMAIN=node:8000
+  mongo:
+    image: mongo
+    ports:
+      - 27017:27017
+    volumes:
+      - mongodb:/data/db
+  node:
+    restart: always
+    build:
+      context: ./crawler
+      dockerfile: ../docker/production/node/Dockerfile
+    ports:
+      - 8000:8000
+    volumes:
+      - ./crawler:/app
+    environment:
+      - MONGO_DB_URI=mongodb://mongo:27017
+      - NODE_CONFIG_DIR=/app/src/config
+    depends_on:
+      - mongo
+
+    
+volumes:
+ mongodb:

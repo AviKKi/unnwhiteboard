@@ -2,18 +2,26 @@
 	import type { Load } from '@sveltejs/kit';
 	export const prerender = true;
 	export const load: Load = async ({ fetch }) => {
-		const url = 'http://localhost:8000/jobs/';
-		const res = await fetch(url);
-		if (res.ok) {
+		try {
+			const url = `http://${env.API_DOMAIN}/jobs/`;
+			const res = await fetch(url);
+			if (res.ok) {
+				return {
+					props: {
+						jobs: await res.json()
+					}
+				};
+			} else {
+				return {
+					status: res.status,
+					error: new Error(`Could not load ${url}`)
+				};
+			}
+		} catch (err) {
 			return {
 				props: {
-					jobs: await res.json()
+					jobs: []
 				}
-			};
-		} else {
-			return {
-				status: res.status,
-				error: new Error(`Could not load ${url}`)
 			};
 		}
 	};
@@ -23,6 +31,7 @@
 	import Select from 'svelte-select';
 	import allTags from '../constants/allTags';
 	import { format } from 'timeago.js';
+	import env from '$lib/env';
 
 	export let jobs: {
 		id: string;
@@ -33,7 +42,9 @@
 	}[];
 	let filteredJobs = null;
 	async function fetchFilteredList(filters: string[]) {
-		const res = await fetch(`http://localhost:8000/jobs/?filter=${filters.join(',')}`);
+		const res = await fetch(
+			`http://${env.API_DOMAIN}/jobs/?filter=${filters.join(',')}`
+		);
 		const json = await res.json();
 		filteredJobs = json;
 		console.log({ json });
