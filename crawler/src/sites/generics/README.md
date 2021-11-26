@@ -8,12 +8,41 @@ This folder contains scraper for website using service like applytojob.com; all 
     - https://bignerdranch.com/careers/
 - workable.com
     - https://www.busuu.com/en/careers#jobs
+    - https://apply.workable.com/cti-jobs/
+    - https://apply.workable.com/chargify/
+    - https://apply.workable.com/cartegraph/
+    - https://apply.workable.com/echobind/
+    - https://apply.workable.com/fauna/
+    - https://apply.workable.com/gruntwork/
+    - https://apply.workable.com/balena/
+    - https://apply.workable.com/stormx/
+    - https://apply.workable.com/skylight/
+    - https://apply.workable.com/doist/
+
 - jobs.lever.co
     - https://replit.com/site/careers
     - https://careers.smartrecruiters.com/RubyGarage
     - https://jobs.lever.co/contentsquare
     - https://www.adthena.com/company/careers/
     - https://www.airbase.com/careers
+    - https://articulate.com/about/careers#open-positions
+    - https://jobs.lever.co/boomtownroi.com
+    - https://jobs.lever.co/food52
+    - https://jobs.lever.co/homechef
+    - https://jobs.lever.co/simplybusiness/
+    - https://jobs.lever.co/stardog/
+    - https://jobs.lever.co/trussworks/
+    - https://jobs.lever.co/wildbit/
+    - https://jobs.lever.co/moteefe/
+    - https://jobs.lever.co/collabora/
+    - https://jobs.lever.co/truora
+    - https://jobs.lever.co/primary-2
+    - https://jobs.lever.co/pingcap/
+    - https://jobs.lever.co/tooploox.com/
+    - https://jobs.lever.co/mattermost/
+    - https://jobs.lever.co/Buildkite/
+    - https://jobs.lever.co/3box
+
 - greenhouse.io
     - https://mode.com/careers
     - https://mux.com/jobs
@@ -25,6 +54,35 @@ This folder contains scraper for website using service like applytojob.com; all 
     - https://boards.greenhouse.io/adhocteam
     - https://airtable.com/careers
     - https://boards.greenhouse.io/weedmaps77
+    - https://boards.greenhouse.io/artsy
+    - https://boards.greenhouse.io/circleci
+    - https://boards.greenhouse.io/shortcut
+    - https://boards.greenhouse.io/deliveroo/
+    - https://boards.greenhouse.io/formidable
+    - https://boards.greenhouse.io/gitlab
+    - https://www.mapbox.com/careers#jobs
+    - https://boards.greenhouse.io/monzo
+    - https://pager.com/jobs-at-pager/
+    - https://boards.greenhouse.io/sourcegraph91
+    - https://boards.greenhouse.io/varsitytutors/
+    - https://boards.greenhouse.io/webflow
+    - https://boards.greenhouse.io/zype
+    - https://boards.greenhouse.io/sumologic
+    - https://boards.greenhouse.io/influxdb
+    - https://boards.greenhouse.io/splice
+    - https://boards.greenhouse.io/getshogun
+    - https://boards.greenhouse.io/github
+    - https://boards.greenhouse.io/axios
+    - https://boards.greenhouse.io/upstatement
+    - https://www.rstudio.com/about/careers/
+    - https://boards.greenhouse.io/fairwinds
+    - https://boards.greenhouse.io/zapier/
+    - https://boards.greenhouse.io/fetchrewards
+    - https://boards.greenhouse.io/bryter
+    - https://boards.greenhouse.io/koalaio
+    - https://www.rockerbox.com/careers
+    - https://boards.greenhouse.io/cloudbees
+
 - jobs.smartrecruiters.com
     - https://careers.smartrecruiters.com/Kataai
     - https://numberly.com/en/jobs-en#filter=tech
@@ -33,6 +91,8 @@ This folder contains scraper for website using service like applytojob.com; all 
     - https://jobs.yougov.com/jobs
     - https://careers.smartrecruiters.com/PublicisGroupe/cj
 - recruitee.com
+    - https://bemind.recruitee.com/
+
 - jobs.personio.de
 - breezy.hr
     - https://accredible.breezy.hr/
@@ -41,3 +101,22 @@ This folder contains scraper for website using service like applytojob.com; all 
 - angel.co
     - https://angel.co/company/adaface/jobs
     - https://angel.co/company/agilemd/jobs
+    - https://angel.co/company/pento/jobs
+    - https://angel.co/company/pexeso/jobs
+    - https://angel.co/company/cquence-app/jobs
+- bamboohr
+    - https://www.bookingsync.com/en/careers
+    - https://realync.bamboohr.com/jobs
+
+- myworkdayjobs
+    - https://pluralsight.wd1.myworkdayjobs.com/en-US/Careers/
+    - https://inmar.wd1.myworkdayjobs.com/inmarcareers
+    - https://salesforce.wd1.myworkdayjobs.com/External_Career_Site
+    - https://crowdstrike.wd5.myworkdayjobs.com/crowdstrikecareers
+- jobvite
+    - https://jobs.jobvite.com/oreilly-media/
+    - https://www.barracuda.com/company/careers
+- trackstar
+    - testdouble.hire.trakstar.com
+- peoplehr
+    - https://despark.peoplehr.net/jobboard
