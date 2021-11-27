@@ -8,7 +8,7 @@ RUN npm ci --production
 
 # Copy all local files into the image.
 COPY . .
-
+RUN npm install
 RUN npm run build
 
 ###
