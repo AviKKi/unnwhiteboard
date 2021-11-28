@@ -6,7 +6,6 @@ async function main() {
     const limit = RateLimit(5)
     const companySlug = process.argv[2]
     const crawlers = await getCrawlers()
-    console.log(crawlers)
     for (const Crawler of crawlers) {
         const crawler = new Crawler(limit)
         if (companySlug && crawler.companySlug !== companySlug) continue
