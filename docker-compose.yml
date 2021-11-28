@@ -1,19 +1,23 @@
 version: '3'
 services:
   nginx:
-    image: nginx:1.15-alpine
+    build:
+      context: .
+      dockerfile: ./docker/production/nginx/Dockerfile
+      args:
+        - CERTBOT_EMAIL=atul7555@gmail.com
+        - DOMAIN_LIST=unnwhiteboard.com,api.unnwhiteboard.com
+
     ports:
       - "80:80"
       - "443:443"
     volumes:
       - ./data/nginx:/etc/nginx/conf.d
+      - letsencrypt:/etc/letsencrypt
     depends_on:
       - node
       - svelte
-    args:
-      - CERTBOT_EMAIL=atul7555@gmail.com
-      - DOMAIN_LIST=unnwhiteboard.com,api.unnwhiteboard.com
-
+    
   svelte:
     restart: always
     build:
@@ -47,3 +51,4 @@ services:
     
 volumes:
  mongodb:
+ letsencrypt:
