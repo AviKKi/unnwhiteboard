@@ -81,7 +81,7 @@
 <section class=" px-2  ">
 	<div class="py-6 md:py-20 bg-blue-50 flex items-center flex-col">
 		<h1 class="text-4xl font-semibold text-gray-800 text-center">
-			Get the <span class="text-blue-500">Right Job</span><br />you deserver
+			Get the <span class="text-blue-500">Right Job</span><br />you deserve
 		</h1>
 		<span class="mt-5 text-center max-w-xl text-gray-600"
 			>Tired of solving bogus question in job interview? Get hired by companies that don't require
