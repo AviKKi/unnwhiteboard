@@ -38,6 +38,7 @@
         "@fontsource/fira-mono": "^4.5.0",
         "@lukeed/uuid": "^2.0.0",
         "cookie": "^0.4.1",
+        "svelte-icons": "^2.1.0",
         "svelte-markdown": "^0.1.14",
         "svelte-select": "^4.4.3",
         "timeago.js": "^4.0.2"
