@@ -3,7 +3,7 @@
 
 	/** @type {import('@sveltejs/kit').Load} */
 	export async function load({ page, fetch, session, stuff }) {
-		const url = `http://${env.API_DOMAIN}/job/${page.params.slug}/`;
+		const url = `${env.API_DOMAIN}/job/${page.params.slug}/`;
 		const resJob = await fetch(url);
 		if (resJob.ok) {
 			return {

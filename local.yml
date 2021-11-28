@@ -10,7 +10,7 @@ services:
     volumes:
       - ./frontend:/app
     environment:
-      - VITE_API_DOMAIN=node:8000
+      - VITE_API_DOMAIN=http://node:8000
   mongo:
     image: mongo
     ports:

@@ -3,7 +3,7 @@
 	export const prerender = true;
 	export const load: Load = async ({ fetch }) => {
 		try {
-			const url = `http://${env.API_DOMAIN}/jobs/`;
+			const url = `${env.API_DOMAIN}/jobs/`;
 			const res = await fetch(url);
 			if (res.ok) {
 				return {
@@ -43,7 +43,7 @@
 	let filteredJobs = null;
 	async function fetchFilteredList(filters: string[]) {
 		const res = await fetch(
-			`http://${env.API_DOMAIN}/jobs/?filter=${filters.join(',')}`
+			`${env.API_DOMAIN}/jobs/?filter=${filters.join(',')}`
 		);
 		const json = await res.json();
 		filteredJobs = json;
