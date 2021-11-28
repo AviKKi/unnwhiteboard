@@ -22,7 +22,7 @@ class GreenhouseCrawler extends BaseCrawler {
         const slug = slugify(`${this.companySlug} ${title} ${urlId[urlId.length - 1]}`)
         const schemaMetas = this.getSchemaMeta(dom.window.document)
         let postedDate = schemaMetas.map(data => data?.datePosted)[0]
-        return { title, location, description, applyUrl: url, tags: [], slug, postedDate }
+        return { title, location, description, applyUrl: url+"#app", tags: [], slug, postedDate }
     }
 
     /**
