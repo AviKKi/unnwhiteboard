@@ -1,26 +1,14 @@
-import AxelerantCrawler from "./axelerant"
-import AutomatticCrawler from "./automattic"
-import WeedMapsCrawler from "./weedmaps"
-import ModeAnalyticsCrawler from "./mode_analytics"
-import BaseCrawler from '../baseCrawler'
-import AlgoliaCrawler from "./algolia"
-import AbleCrawler from "./able"
-import AdHocTeamCrawler from "./adhocteam"
-import AirtableCrawler from "./airtable"
-import CanonicalCrawler from "./canonical"
-import MuxCrawler from "./mux"
-import ReplitCrawler from "./replit"
+import * as fs from 'fs/promises'
 
-export const Crawlers: typeof BaseCrawler[] = [
-    AbleCrawler,
-    AdHocTeamCrawler,
-    AlgoliaCrawler,
-    AirtableCrawler,
-    AutomatticCrawler,
-    AxelerantCrawler,
-    CanonicalCrawler,
-    ModeAnalyticsCrawler,
-    WeedMapsCrawler,
-    MuxCrawler,
-    ReplitCrawler,
-]
+import BaseCrawler from '../baseCrawler'
+
+export async function getCrawlers() {
+    const crawlers: typeof BaseCrawler[] = []
+    const files = await fs.readdir('./')
+    for (const file of files) {
+        if (file === 'index.ts' || file === 'generics') continue
+        const module = await import('./' + file)
+        crawlers.push(module)
+    }
+    return crawlers
+}
