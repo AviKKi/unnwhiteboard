@@ -4,6 +4,7 @@ services:
     build:
       context: .
       dockerfile: ./docker/production/nginx/Dockerfile
+      network: host
       args:
         - CERTBOT_EMAIL=atul7555@gmail.com
         - DOMAIN_LIST=unnwhiteboard.com,api.unnwhiteboard.com
