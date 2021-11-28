@@ -7,16 +7,13 @@ services:
       - "443:443"
     volumes:
       - ./data/nginx:/etc/nginx/conf.d
-      - ./data/certbot/conf:/etc/letsencrypt
-      - ./data/certbot/www:/var/www/certbot
     depends_on:
       - node
       - svelte
-  certbot:
-    image: certbot/certbot
-    volumes: 
-      - ./data/certbot/conf:/etc/letsencrypt
-      - ./data/certbot/www:/var/www/certbot
+    args:
+      - CERTBOT_EMAIL=atul7555@gmail.com
+      - DOMAIN_LIST=unnwhiteboard.com,api.unnwhiteboard.com
+
   svelte:
     restart: always
     build:
