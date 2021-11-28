@@ -42,25 +42,36 @@
 		slug: string;
 		postedDate: string;
 	}[];
-	let filteredJobs = null;
-	async function fetchFilteredList(filters: string[]) {
+
+	/**
+	 * Fetch list of jobs from the server
+	 * @param filters
+	 * @param loadMore - if true response will be appended in the `jobs` list
+	 */
+	async function fetchFilteredList(filters: string[], loadMore: boolean = false) {
+		const skip = jobs.length;
 		const res = await fetch(
-			`${env.API_DOMAIN}/jobs/?filter=${filters.join(',')}`
+			`${env.API_DOMAIN}/jobs/?` +
+				(filters?.length ? `filter=${filters.join(',')}` : '') +
+				(loadMore ? `&skip=${skip}` : ``)
 		);
 		const json = await res.json();
-		filteredJobs = json;
-		console.log({ json });
+		if (loadMore) jobs = jobs.concat(json);
+		else jobs = json;
 	}
+	
 	const selectItems = Object.entries(allTags).map((item) => ({ value: item[0], label: item[1] }));
 	let filterValues = undefined;
+
 	const handleSelect = (e) => {
 		filterValues = e.detail;
-		if (e.detail) fetchFilteredList(e.detail.map((val) => val.value));
-		else filteredJobs = null;
-	};
-	let displayJobs: any;
-	$: displayJobs = filteredJobs || jobs;
-	$: console.log({ filteredJobs });
+		fetchFilteredList(filterValues?.map((val) => val.value) || []);
+	}
+
+	function loadMore() {
+		fetchFilteredList(filterValues?.map((val) => val.value) || [], true);
+	}
+
 </script>
 
 <svelte:head>
@@ -88,8 +99,8 @@
 		</div>
 	</div>
 	<div class="flex items-center flex-col py-12 bg-gray-100">
-		{#if displayJobs}
-			{#each displayJobs as job}
+		{#if jobs}
+			{#each jobs as job}
 				<li
 					class="p-2 bg-white my-2 rounded-md border-4 border-white hover:border-blue-500 list-none cardWrapper w-2/3"
 				>
@@ -102,6 +113,7 @@
 					{(job.postedDate && format(job.postedDate)) || ''}
 				</li>
 			{/each}
+			<button class="mt-4 border-2 border-blue-500 hover:border-blue-800 p-2 rounded-md" on:click={loadMore}>Load More</button>
 		{:else}
 			Jobs not loaded
 		{/if}
