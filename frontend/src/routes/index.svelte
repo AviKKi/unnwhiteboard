@@ -98,7 +98,7 @@
 			/>
 		</div>
 	</div>
-	<div class="flex items-center flex-col py-12 bg-gray-100">
+	<div class="flex items-center flex-col py-12 bg-gray-100 resultsWrapper">
 		{#if jobs}
 			{#each jobs as job}
 				<li
@@ -123,5 +123,8 @@
 <style>
 	.cardWrapper {
 		max-width: 650px;
+	}
+	.resultsWrapper{
+		background-color: #f7f9fc;
 	}
 </style>
