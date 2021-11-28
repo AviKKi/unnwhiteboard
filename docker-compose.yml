@@ -5,6 +5,8 @@ services:
     build:
       context: ./frontend
       dockerfile: ../docker/production/svelte/Dockerfile
+      args:
+        - VITE_API_DOMAIN=https://api.unnwhiteboard.com
     ports:
       - 3000:3000
     environment:

@@ -7,6 +7,8 @@ RUN npm ci --production
 
 
 # Copy all local files into the image.
+ARG VITE_API_DOMAIN
+ENV VITE_API_DOMAIN $VITE_API_DOMAIN
 COPY . .
 RUN npm install
 RUN npm run build

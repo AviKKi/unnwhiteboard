@@ -9,7 +9,8 @@
 				return {
 					props: {
 						jobs: await res.json()
-					}
+					},
+					status: 200
 				};
 			} else {
 				return {
@@ -21,7 +22,8 @@
 			return {
 				props: {
 					jobs: []
-				}
+				},
+				status: 200
 			};
 		}
 	};
