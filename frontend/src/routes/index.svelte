@@ -32,7 +32,7 @@
 <script lang="ts">
 	import Select from 'svelte-select';
 	import allTags from '../constants/allTags';
-	import { format } from 'timeago.js';
+	import { format as timeago } from 'timeago.js';
 	import env from '$lib/env';
 
 	export let jobs: {
@@ -84,8 +84,7 @@
 			Get the <span class="text-blue-500">Right Job</span><br />you deserve
 		</h1>
 		<span class="mt-5 text-center max-w-xl text-gray-600"
-			>Tired of solving bogus question in job interview? Get hired by companies that don't require
-			you to solve bogus questions on whiteboard.</span
+			>No Leetcode, no inverting the binary tree. <br />Companies below will interview you on questions that resemble day-to-day work of a developer.</span
 		>
 		<div class="pt-11 w-full justify-center flex">
 			<Select
@@ -102,7 +101,7 @@
 		{#if jobs}
 			{#each jobs as job}
 				<li
-					class="p-2 bg-white my-2 rounded-md border-4 border-white hover:border-blue-500 list-none cardWrapper w-2/3"
+					class="p-2 bg-white my-2 rounded-md border-4 border-white hover:border-blue-500 list-none cardWrapper w-full md:w-2/3"
 				>
 					<a class="flex flex-col" href={`/job/${job.slug}`}>
 						<span class="text-gray-700"
@@ -110,7 +109,7 @@
 						>
 						<span class="text-lg">{job.title}</span>
 					</a>
-					{(job.postedDate && format(job.postedDate)) || ''}
+					<span class="text-gray-700">{(job.postedDate && timeago(job.postedDate)) || ''}</span>
 				</li>
 			{/each}
 			<button class="mt-4 border-2 border-blue-500 hover:border-blue-800 p-2 rounded-md" on:click={loadMore}>Load More</button>

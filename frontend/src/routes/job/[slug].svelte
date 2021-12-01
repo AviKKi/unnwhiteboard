@@ -25,16 +25,19 @@
 	import SvelteMarkdown from 'svelte-markdown';
 </script>
 
-<section class=" py-20 flex  justify-center">
+<section class="py-20 flex  justify-center">
 	<div class="flex max-w-7xl px-2 text-gray-900 gap-3">
 		<div class="flex-1 markdown">
 			<b>Posted on:</b>
 			{new Date(job.postedDate).toDateString().slice(3)}
 			<SvelteMarkdown source={job.description} />
 		</div>
-		<div class="flex-1 flex flex-col items-center rightColumn">
+		<div class="hidden md:flex flex-1 flex-col items-center rightColumn">
 			About the company
 			<a class="bg-blue-400 text-white rounded-sm px-4 py-2 " href={job.applyUrl}>Apply Now</a>
+		</div>
+		<div class="fixed bottom-0 w-full flex bg-white md:hidden py-2">
+			<a class="bg-blue-400 text-white rounded-sm w-full text-center py-2 " href={job.applyUrl}>Apply Now</a>
 		</div>
 	</div>
 </section>
