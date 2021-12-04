@@ -12,9 +12,20 @@ router.get("/jobs", async (req, res) => {
         const filters = filter.split(',')
         findParams['filterTags'] = { $in: filters }
     }
-    const jobs = await JobPost.find(findParams, null, { sort: { postedDate: -1 }, limit: Number(limit) || LIMIT, skip: Number(skip) })
+    const jobs = await JobPost.find(findParams, null, { sort: { postedDate: -1 }, limit: Number(limit) || LIMIT, skip: Number(skip) }).select({
+        _id: 1,
+        slug: 1,
+        applyUrl: 1,
+        company: {
+            name: 1,
+            slug: 1
+        },
+        location: 1,
+        title: 1,
+        postedDate: 1
+    })
     // @ts-ignore
-    res.json(jobs.map(j => j._doc))
+    res.json(jobs.map(j => j.toJSON()))
 })
 
 router.get("/job/:slug", async (req, res) => {
