@@ -6,6 +6,8 @@ import cors from 'cors'
 import connectDB from "./config/database";
 import Company from './routes/Company'
 import JobPost from './routes/JobPost'
+import LocationRouter from './routes/Location'
+
 
 const app = express()
 app.use(cors())
@@ -19,6 +21,7 @@ app.get('/', (req, res) => {
 
 app.use("/", Company)
 app.use("/", JobPost)
+app.use("/", LocationRouter)
 
 if (process.argv.length > 2 && process.argv[2] === "shell") {
     repl.start('> ')
