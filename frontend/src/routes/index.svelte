@@ -43,7 +43,7 @@
 		company: { name: string; slug: string };
 		slug: string;
 		postedDate: string;
-		location: string
+		location: string;
 	}[];
 
 	/**
@@ -93,26 +93,28 @@
 	<title>UnnWhiteboard</title>
 </svelte:head>
 
-<section class=" px-2  ">
-	<div class="py-6 md:py-20 bg-blue-50 flex items-center flex-col">
-		<h1 class="text-4xl font-semibold text-gray-800 text-center">
-			Get the <span class="text-blue-500">Right Job</span><br />you deserve
-		</h1>
-		<span class="mt-5 text-center max-w-xl text-gray-600"
-			>No Leetcode, no inverting the binary tree. <br />Companies below will interview you on
-			questions that resemble day-to-day work of a developer.</span
-		>
-		<div class="pt-11 md:w-3/4 w-full justify-center flex gap-2 flex-col-reverse md:flex-row">
-			<Select
-				items={selectItems}
-				value={filterValues}
-				on:select={handleSelect}
-				isMulti={true}
-				placeholder="Filter"
-				containerClasses="mx-8 flex-1"
-				isDisabled={loading}
-			/>
-			<LocationFilter isDisabled={loading} bind:selectedValue={selectedLocation} />
+<section class="">
+	<div class="py-20 bg-blue-50 flex justify-center">
+		<div class="px-2 flex items-center flex-col max-w-6xl w-full">
+			<h1 class="text-4xl font-semibold text-gray-800 text-center">
+				Get the <span class="text-blue-500">Right Job</span><br />you deserve
+			</h1>
+			<p class="mt-5 text-center max-w-xl text-gray-600">
+				No Leetcode, no inverting the binary tree. <br />Companies below will interview you on
+				questions that resemble day-to-day work of a developer.
+			</p>
+			<div class="pt-11 md:w-3/4 min-w-full justify-center flex gap-2 flex-col md:flex-row">
+				<Select
+					items={selectItems}
+					value={filterValues}
+					on:select={handleSelect}
+					isMulti={true}
+					placeholder="Filter"
+					containerClasses="mx-8 flex-auto"
+					isDisabled={loading}
+				/>
+				<LocationFilter isDisabled={loading} bind:selectedValue={selectedLocation} />
+			</div>
 		</div>
 	</div>
 	<div class="flex relative items-center flex-col py-12 bg-gray-100 resultsWrapper">
@@ -136,7 +138,8 @@
 						>
 						<span class="text-lg">{job.title}</span>
 					</a>
-					<span class="text-gray-700">{(job.postedDate && timeago(job.postedDate)) || ''}</span> | <span class="text-gray-700">{job.location}</span>
+					<span class="text-gray-700">{(job.postedDate && timeago(job.postedDate)) || ''}</span> |
+					<span class="text-gray-700">{job.location}</span>
 				</li>
 			{/each}
 			<button

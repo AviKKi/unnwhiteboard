@@ -30,5 +30,6 @@
 	placeholder="📍 Location"
 	{loadOptions}
 	{...$$restProps}
-	containerClasses="mx-8 h-100 relative"
+	containerStyles="min-width: 250px;"
+	containerClasses="mx-8 flex-auto relative" 
 />
