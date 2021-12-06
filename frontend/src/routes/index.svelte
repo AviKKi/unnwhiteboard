@@ -91,6 +91,10 @@
 
 <svelte:head>
 	<title>UnnWhiteboard</title>
+	<meta name="description" content="Looking for a tech job, but not into Algo/DS? these companies hire with real world development questions and assignments." />
+	<meta property="og:type" content="website" />
+	<meta property="og:site_name" content="UnnWhiteboard">
+	<meta property="og:url" content="https://unnwhiteboard.com" />
 </svelte:head>
 
 <section class="">
