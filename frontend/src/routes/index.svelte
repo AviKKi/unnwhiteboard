@@ -31,10 +31,12 @@
 
 <script lang="ts">
 	import Select from 'svelte-select';
-	import allTags from '../constants/allTags';
 	import { format as timeago } from 'timeago.js';
-	import env from '$lib/env';
+	import { Jumper } from 'svelte-loading-spinners';
 
+	import allTags from '../constants/allTags';
+	import LocationFilter from '$lib/LocationFilter.svelte';
+	import env from '$lib/env';
 	export let jobs: {
 		id: string;
 		title: string;
@@ -48,30 +50,42 @@
 	 * @param filters
 	 * @param loadMore - if true response will be appended in the `jobs` list
 	 */
-	async function fetchFilteredList(filters: string[], loadMore: boolean = false) {
-		const skip = jobs.length;
-		const res = await fetch(
-			`${env.API_DOMAIN}/jobs/?` +
-				(filters?.length ? `filter=${filters.join(',')}` : '') +
-				(loadMore ? `&skip=${skip}` : ``)
-		);
-		const json = await res.json();
-		if (loadMore) jobs = jobs.concat(json);
-		else jobs = json;
+	async function fetchFilteredList(
+		filters: string[],
+		locationFilter: any,
+		loadMore: boolean = false
+	) {
+		loading = true;
+		try {
+			const skip = jobs.length;
+			const res = await fetch(
+				`${env.API_DOMAIN}/jobs/?` +
+					(filters?.length ? `filter=${filters.join(',')}` : '') +
+					(locationFilter ? `&location=${locationFilter.value}` : '') +
+					(loadMore ? `&skip=${skip}` : ``)
+			);
+			const json = await res.json();
+			if (loadMore) jobs = jobs.concat(json);
+			else jobs = json;
+		} catch (err) {
+			console.log(err);
+		}
+		loading = false;
 	}
-	
+
 	const selectItems = Object.entries(allTags).map((item) => ({ value: item[0], label: item[1] }));
 	let filterValues = undefined;
-
+	let selectedLocation = undefined;
+	let loading = false;
 	const handleSelect = (e) => {
 		filterValues = e.detail;
-		fetchFilteredList(filterValues?.map((val) => val.value) || []);
-	}
+	};
 
 	function loadMore() {
-		fetchFilteredList(filterValues?.map((val) => val.value) || [], true);
+		fetchFilteredList(filterValues?.map((val) => val.value) || [], selectedLocation, true);
 	}
 
+	$: fetchFilteredList(filterValues?.map((val) => val.value) || [], selectedLocation);
 </script>
 
 <svelte:head>
@@ -84,20 +98,32 @@
 			Get the <span class="text-blue-500">Right Job</span><br />you deserve
 		</h1>
 		<span class="mt-5 text-center max-w-xl text-gray-600"
-			>No Leetcode, no inverting the binary tree. <br />Companies below will interview you on questions that resemble day-to-day work of a developer.</span
+			>No Leetcode, no inverting the binary tree. <br />Companies below will interview you on
+			questions that resemble day-to-day work of a developer.</span
 		>
-		<div class="pt-11 w-full justify-center flex">
+		<div class="pt-11 md:w-3/4 w-full justify-center flex gap-2">
 			<Select
 				items={selectItems}
 				value={filterValues}
 				on:select={handleSelect}
 				isMulti={true}
 				placeholder="Filter"
-				containerClasses="w-full md:w-2/3 mx-8"
+				containerClasses="mx-8 flex-1"
+				isDisabled={loading}
 			/>
+			<LocationFilter isDisabled={loading} bind:selectedValue={selectedLocation} />
 		</div>
 	</div>
-	<div class="flex items-center flex-col py-12 bg-gray-100 resultsWrapper">
+	<div class="flex relative items-center flex-col py-12 bg-gray-100 resultsWrapper">
+		{#if loading}
+			<div
+				class="bg-white z-40 absolute top-0 left-0 w-full h-full bg-opacity-25 flex justify-center "
+			>
+				<div class="fixed">
+					<Jumper size="60" color="#3b82f6" unit="px" duration="1s" />
+				</div>
+			</div>
+		{/if}
 		{#if jobs}
 			{#each jobs as job}
 				<li
@@ -112,7 +138,10 @@
 					<span class="text-gray-700">{(job.postedDate && timeago(job.postedDate)) || ''}</span>
 				</li>
 			{/each}
-			<button class="mt-4 border-2 border-blue-500 hover:border-blue-800 p-2 rounded-md" on:click={loadMore}>Load More</button>
+			<button
+				class="mt-4 border-2 border-blue-500 hover:border-blue-800 p-2 rounded-md"
+				on:click={loadMore}>Load More</button
+			>
 		{:else}
 			Jobs not loaded
 		{/if}
@@ -123,7 +152,10 @@
 	.cardWrapper {
 		max-width: 650px;
 	}
-	.resultsWrapper{
+	.resultsWrapper {
 		background-color: #f7f9fc;
+	}
+	.flex-4 {
+		flex: 4;
 	}
 </style>
