@@ -30,5 +30,5 @@
 	placeholder="📍 Location"
 	{loadOptions}
 	{...$$restProps}
-	containerClasses="mx-8 flex-1"
+	containerClasses="mx-8 h-100 relative"
 />

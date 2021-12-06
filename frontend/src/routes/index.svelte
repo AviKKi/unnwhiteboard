@@ -43,6 +43,7 @@
 		company: { name: string; slug: string };
 		slug: string;
 		postedDate: string;
+		location: string
 	}[];
 
 	/**
@@ -101,7 +102,7 @@
 			>No Leetcode, no inverting the binary tree. <br />Companies below will interview you on
 			questions that resemble day-to-day work of a developer.</span
 		>
-		<div class="pt-11 md:w-3/4 w-full justify-center flex gap-2">
+		<div class="pt-11 md:w-3/4 w-full justify-center flex gap-2 flex-col-reverse md:flex-row">
 			<Select
 				items={selectItems}
 				value={filterValues}
@@ -135,7 +136,7 @@
 						>
 						<span class="text-lg">{job.title}</span>
 					</a>
-					<span class="text-gray-700">{(job.postedDate && timeago(job.postedDate)) || ''}</span>
+					<span class="text-gray-700">{(job.postedDate && timeago(job.postedDate)) || ''}</span> | <span class="text-gray-700">{job.location}</span>
 				</li>
 			{/each}
 			<button
