@@ -1,5 +1,5 @@
 export default {
-    "engineer": "🤓Engineer",
+    "engineer": "👨‍💻Engineer",
     "senior": "👵Senior",
     "executive": "💼Executive",
     "javascript": "☕️JavaScript",
