@@ -9,7 +9,7 @@
     <br />
     <a href="https://unnwhiteboard.com"><strong>See the jobs</strong></a>
     <br />
-    "Whiteboards" is used as a metaphor, and is a symbol for the kinds of CS trivia questions that are associated with bad interview practices. Whiteboards are not bad – CS trivia questions are. Using sites like HackerRank/LeetCode probably fall into a similar category
+    "Whiteboard" is used as a metaphor, and is a symbol for the kinds of CS trivia questions that are associated with bad interview practices. Whiteboards are not bad – CS trivia questions are. Using sites like HackerRank/LeetCode presumably falls in a similar category.
     <br />
     <br />
     <b>
