@@ -2,6 +2,7 @@
 	import { page } from '$app/stores';
 	import logo from './svelte-logo.svg';
 	import DiGithubBadge from 'svelte-icons/di/DiGithubBadge.svelte';
+	import Twitter from '$lib/components/ShareButtons/Twitter.svelte';
 </script>
 
 <header class="flex justify-center py-5 text-gray-900">
