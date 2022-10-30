@@ -33,7 +33,7 @@
  This project is opensource so community can learn and contribute to this codebase. To run and modify this project locally use below guide
  
  ### Pre-requisite
- You should have docker, docker-compose and optionally make installed in your system.
+ You should have **docker**, **docker-compose** and optionally **make** installed in your system.
  
  ### Starting Development server
  * Build the docker container
